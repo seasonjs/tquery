@@ -1,6 +1,12 @@
+import {TQuery} from "./TQuery";
 
-// type eachCallback = (el: any) => {};
-import './tQuery';
-import './tQueryImp'
-let $: tQuery = new tQueryImp;
-$()
+//使用方法
+// 好处和jq相比，无冲突可随意更改命名所以可以有UA去判断使用哪个类，也避免了jq的很多冲突问题
+function $(el: string | Element) {
+    return new TQuery(<string>el) && new TQuery(<Element>el)
+}
+
+$('body').each(function (index) {
+    console.log(index, this)
+});
+

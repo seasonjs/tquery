@@ -1,1 +1,0 @@
-type eachCallback = (el: any) => {};
