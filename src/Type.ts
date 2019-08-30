@@ -1,9 +1,10 @@
-
 export interface TQ {
     elem: any;
     length: number;
     context: any;
     selector: string | Element;
+
+    getInstance(): (elem: string | Element) => any
 
     each(callback: (index) => void): void;
 
@@ -25,10 +26,23 @@ export interface TQ {
 
     attr(att: string | object);
 
-    removeAttr(name: string)
+    toggleAttr(name: string);
 
-    prop(pro: string | object)
+    removeAttr(name: string);
 
-    removeProp(name: string)
+    prop(pro: string | object);
 
+    removeProp(name: string);
+
+    addClass(clazz: string);
+
+    removeClass(clazz: string);
+
+    toggleClass(clazz: string);
+
+    html(val?: string)
+
+    text(val?: string)
+
+    val(val?: string)
 }
