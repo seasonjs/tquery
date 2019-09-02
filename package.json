@@ -1,11 +1,12 @@
 {
   "name": "tquery",
   "version": "0.0.1",
-  "description": "[tQuery](https://hselfweb.com/tq) — 熟悉的味道，新潮的写法\r ==================================================",
+  "description": "熟悉的味道，新潮的写法",
   "main": "index.js",
   "scripts": {
     "build": "rollup -c",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "fix": "standard --fix "
   },
   "repository": {
     "type": "git",
@@ -18,8 +19,26 @@
   },
   "homepage": "https://github.com/seasonjs/tquery#readme",
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/ramda": "github:types/npm-ramda#dist",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
     "rollup-plugin-typescript": "^1.0.1",
     "tslib": "^1.10.0",
+    "tslint-config-standard": "^8.0.1",
     "typescript": "^3.6.2"
-  }
+  },
+  "dependencies": {
+    "current-device": "^0.8.2",
+    "ramda": "^0.26.1"
+  },
+  "collectCoverage": true,
+  "coverageReporters": [
+    "json",
+    "html",
+    "text"
+  ]
 }

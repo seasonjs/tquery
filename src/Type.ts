@@ -1,48 +1,76 @@
 export interface TQ {
-    elem: any;
-    length: number;
-    context: any;
-    selector: string | Element;
+    version: string
+    elem: any
+    length: number
+    context: any
+    selector: string | Element
 
-    getInstance(): (elem: string | Element) => any
+    // getInstance(): (elem: string | Element) => any
 
-    each(callback: (index) => void): void;
+    each(callback: (index) => void): void
 
-    size(): number;
+    size(): number
 
-    data(key, value);
+    data(key, value)
 
-    removeData();
+    removeData()
 
-    get(index: number);
+    get(index: number)
 
-    index(selector: string): number;
+    index(selector: string): number
 
-    queue(e, q);
+    queue(e, q)
 
-    dequeue([queueName]);
+    dequeue([queueName])
 
-    clearQueue([queueName]);
+    clearQueue([queueName])
 
-    attr(att: string | object);
+    attr(att: string | object)
 
-    toggleAttr(name: string);
+    toggleAttr(name: string)
 
-    removeAttr(name: string);
+    removeAttr(name: string)
 
-    prop(pro: string | object);
+    prop(pro: string | object)
 
-    removeProp(name: string);
+    removeProp(name: string)
 
-    addClass(clazz: string);
+    addClass(clazz: string)
 
-    removeClass(clazz: string);
+    removeClass(clazz: string)
 
-    toggleClass(clazz: string);
+    toggleClass(clazz: string)
 
     html(val?: string)
 
     text(val?: string)
 
     val(val?: string)
+
+    css(arg1: string | object, callback?: (index: number, value: string) => any)
+
+    cssHooks?: Array<any>
+
+    offset(coordinates: object, callback?: (index: number, coords) => any)
+
+    position(): { top: number, left: number }
+
+    scrollTop(val: string | number)
+
+    scrollLeft(val: string | number): number
+
+    height(val: string | number, callback?: (index: number, height: number) => number | string)
+
+    width(val: string | number, callback?: (index: number, width: number) => number | string)
+
+    innerHeight(): number
+
+    innerWidth(): number
+
+    outerHeight(options: boolean): number
+
+    outerWidth(options: boolean): number
+
+    append()
+
 }

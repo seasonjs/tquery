@@ -1,6 +1,6 @@
-//import resolve from 'rollup-plugin-node-resolve';
-//import babel from 'rollup-plugin-babel';
-import typescript from 'rollup-plugin-typescript';
+// import resolve from 'rollup-plugin-node-resolve';
+// import babel from 'rollup-plugin-babel';
+import typescript from 'rollup-plugin-typescript'
 
 export default {
   input: 'src/main.ts',
@@ -13,6 +13,6 @@ export default {
     // babel({
     //   exclude: 'node_modules/**' // 只编译我们的源代码
     // }),
-    typescript({lib: ["es5", "es6", "dom"], target: "es5"})
+    typescript({ lib: ['es5', 'es6', 'dom'], target: 'es5' })
   ]
-};
+}

@@ -3,44 +3,35 @@ import {TQ} from "./Type";
 //TODO: 将这个类拆分，目前先用这样的方式划分
 
 export class TQuery implements TQ {
-
     ////===============================tQuery 成员变量=============================================
     context: any;
     length: number;
     elem: any;
-    selector: string;
+    selector: string;//选择器名称
+    version: string;
+    cssHooks?: any[];
+
     //TODO:减少选择器删选的流程
     /**
      * 实现已选择的选择器的Node节点来解决
      */
     private static selectors: any;
+  //  曾经的所有的选择器对象
     //单例模式
-    private static instance: TQ;
+    //   private static instance: TQ;
 
     //===============================tQuery 核心函数=============================================
-    /**
-     * TODO: 需要跟jq一样能匹配更多参数
-     * @param el
-     */
+    constructor();
     constructor(el: string);
     constructor(el: Element);
     constructor(el?: string | Element, callback?: () => {}) {
         //类型断言
-        if (typeof el === "string") this.elem = document.querySelectorAll(<string>el);
+        if ((el === undefined || el === null) && (callback === null || callback === undefined)) return;
+        else if (typeof el === "string") this.elem = document.querySelectorAll(<string>el);
         else this.elem = <Element>el || null;
         //TODO:element类型传进来也能找到对应的selector
         this.selector = <string>el;
         //   this.ready(callback)
-    }
-
-    getInstance(elem: string | Element): (elem: string | Element) => any {
-        let instance: any;
-        return function (elem: string | Element): any {
-            if (instance === null || instance === undefined) {
-                instance = new TQuery(<string>elem) || new TQuery(<Element>elem)
-            }
-            return instance;
-        }
     }
 
 
@@ -52,10 +43,9 @@ export class TQuery implements TQ {
      */
     each(callback: (index) => void): void {
         this.elem.forEach((element, index) => {
-            // @ts-ignore
-            this = element;
-            callback(index);
-        })
+            callback.call(element, index);
+            //return element;
+        }, this)
     }
 
     /**
@@ -150,7 +140,7 @@ export class TQuery implements TQ {
      * TODO：添加一个key callback的方法重载
      * 获取匹配的元素集中第一个元素的属性（property）值或设置每一个匹配元素的一个或多个属性。
      * @param arg1
-     * @param arg2
+     * //@param arg2
      */
     prop(arg1: string | object) {
         if (typeof arg1 === "string") return this.attr(arg1);
@@ -194,7 +184,7 @@ export class TQuery implements TQ {
      * 在一个 HTML 文档中, 我们可以使用 .html() 方法来获取任意一个元素的内容。 如果选择器匹配多于一个的元素，那么只有第一个匹配元素的 HTML 内容会被获取。
      * @param val
      */
-    html(val?: string) {
+    html(val?: string | Text) {
         if (val === undefined || val === null) {
             return this.elem[0].innerHTML;
         } else {
@@ -202,15 +192,87 @@ export class TQuery implements TQ {
         }
     }
 
-    text(val?: string) {
+    text(val?: string | Text) {
         if (val === undefined || val === null) {
             return this.html();
         } else {
-
+            //TODO:之后去做兼容   https://developer.mozilla.org/zh-CN/docs/Web/API/Text/Text#Browser_compatibility
+            let text = new Text(<string>val);
+            this.html(text)
         }
     }
 
     val(val?: string) {
-
+        if (val === undefined || val === null) {
+            return this.attr("value") || this.html();
+        } else {
+            this.attr("value", val);
+            this.html(val);
+        }
     }
+
+//=============================  CSS  ===================================================
+    css(arg1: string | object, callback?: (index: number, value: string) => number) {
+        if ((arg1 === null || arg1 === undefined) && (callback === null || undefined)) {
+            return this.elem.style.cssText;
+        }
+        if (typeof arg1 === "string") {
+            this.elem.style.cssText = this.elem.style.cssText + arg1;
+        }else {
+
+        }
+    }
+
+
+//======================================位置========================================
+    offset(coordinates: object, callback?: (index: number, coords: any) => number) {
+        throw new Error("Method not implemented.");
+    }
+
+    position(): { //   this.ready(callback)
+        top: number; left: number;
+    } {
+        throw new Error("Method not implemented.");
+    }
+
+    scrollTop(val: string | number) {
+        throw new Error("Method not implemented.");
+    }
+
+    scrollLeft(val: string | number): number {
+        throw new Error("Method not implemented.");
+    }
+
+//=================================================尺寸=============================================
+
+    height(val: string | number, callback?: (index: number, height: number) => string | number) {
+        throw new Error("Method not implemented.");
+    }
+
+    width(val: string | number, callback?: (index: number, width: number) => string | number) {
+        throw new Error("Method not implemented.");
+    }
+
+    innerHeight(): number {
+        throw new Error("Method not implemented.");
+    }
+
+    innerWidth(): number {
+        throw new Error("Method not implemented.");
+    }
+
+    outerHeight(options: boolean): number {
+        throw new Error("Method not implemented.");
+    }
+
+    outerWidth(options: boolean): number {
+        throw new Error("Method not implemented.");
+    }
+
+//============================================内部插入=======================================
+    append() {
+        throw new Error("Method not implemented.");
+    }
+
+
 }

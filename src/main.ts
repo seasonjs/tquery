@@ -6,14 +6,17 @@ import {TQuery} from "./TQuery";
 //     return new TQuery(<string>el) || new TQuery(<Element>el)
 // }
 // 使用单例模式以获得更大的提升性能
-function $(el:string|Element){
-
-    return function () {
-
+const $ = function () {
+    let instance: any;
+    return function (el: string | Element) {
+        if (instance === null || instance === undefined) {
+            instance = new TQuery(<string>el) || new TQuery(<Element>el)
+        } else {
+            instance.elem = el;
+        }
+        return instance;
     }
-}
-//test
-$('body').each(function (index) {
-    console.log(index, this)
-});
+}();
+
+export default $;
 
